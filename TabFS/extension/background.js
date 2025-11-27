@@ -349,6 +349,73 @@ Routes["/tabs/by-id"] = {
     ...routeFromScript(`document.body.innerHTML`)
   };
 
+  // === CLAUDE CODE ENHANCEMENTS ===
+
+  // Full document HTML (not just body)
+  Routes["/tabs/by-id/#TAB_ID/document.html"] = {
+    description: `Full document HTML including head.`,
+    usage: 'cat $0',
+    ...routeFromScript(`document.documentElement.outerHTML`)
+  };
+
+  // Currently selected text
+  Routes["/tabs/by-id/#TAB_ID/selection.txt"] = {
+    description: `Currently selected text on the page.`,
+    usage: 'cat $0',
+    ...routeFromScript(`window.getSelection().toString()`)
+  };
+
+  // Page metadata as JSON
+  Routes["/tabs/by-id/#TAB_ID/meta.json"] = {
+    description: `Page metadata (title, URL, description, etc) as JSON.`,
+    usage: 'cat $0',
+    ...routeFromScript(`JSON.stringify({
+      title: document.title,
+      url: location.href,
+      description: document.querySelector('meta[name="description"]')?.content || null,
+      charset: document.characterSet,
+      lastModified: document.lastModified,
+      referrer: document.referrer,
+      readyState: document.readyState,
+      forms: document.forms.length,
+      links: document.links.length,
+      images: document.images.length,
+      scripts: document.scripts.length
+    }, null, 2)`)
+  };
+
+  // Console log capture - installs interceptor on first read
+  Routes["/tabs/by-id/#TAB_ID/console.json"] = {
+    description: `Captured console output. First read installs interceptor, subsequent reads return logs.`,
+    usage: 'cat $0',
+    ...routeFromScript(`(function(){
+      if(!window.__tcl){
+        window.__tcl=[];
+        var m=500,o=console.log,e=console.error,w=console.warn;
+        console.log=function(){window.__tcl.push({t:Date.now(),l:'log',m:Array.from(arguments).join(' ')});if(window.__tcl.length>m)window.__tcl.shift();o.apply(console,arguments)};
+        console.error=function(){window.__tcl.push({t:Date.now(),l:'error',m:Array.from(arguments).join(' ')});if(window.__tcl.length>m)window.__tcl.shift();e.apply(console,arguments)};
+        console.warn=function(){window.__tcl.push({t:Date.now(),l:'warn',m:Array.from(arguments).join(' ')});if(window.__tcl.length>m)window.__tcl.shift();w.apply(console,arguments)};
+      }
+      return JSON.stringify(window.__tcl);
+    })()`)
+  };
+
+  // JavaScript errors on the page
+  Routes["/tabs/by-id/#TAB_ID/errors.json"] = {
+    description: `JavaScript errors captured from the page.`,
+    usage: 'cat $0',
+    ...routeFromScript(`(function(){
+      if(!window.__terr){
+        window.__terr=[];
+        window.addEventListener('error',function(e){
+          window.__terr.push({t:Date.now(),m:e.message,f:e.filename,l:e.lineno});
+          if(window.__terr.length>100)window.__terr.shift();
+        });
+      }
+      return JSON.stringify(window.__terr);
+    })()`)
+  };
+
   Routes["/tabs/by-id/#TAB_ID/active"] = {
     description: 'Text file containing `true` or `false` depending on whether this tab is active in its window.',
     usage: ['cat $0',
