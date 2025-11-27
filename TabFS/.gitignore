@@ -1,0 +1,7 @@
+.DS_Store
+scratch
+fs/tabfs
+fs/tabfs.dSYM
+fs/log.txt
+fs/mnt
+test/test

@@ -1,0 +1,37 @@
+# compiled binary
+TabFS/fs/tabfs
+TabFS/fs/*.o
+TabFS/fs/*.dSYM/
+
+# mount point contents (not the dir itself)
+TabFS/fs/mnt/*
+!TabFS/fs/mnt/.gitkeep
+
+# test artifacts
+TabFS/test/*.o
+TabFS/test/test
+
+# safari build
+TabFS/extension/safari/TabFS/build/
+TabFS/extension/safari/TabFS/DerivedData/
+
+# xcode user state
+*.xcuserstate
+xcuserdata/
+
+# logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# original TabFS git (we're creating fresh repo)
+TabFS/.git/
