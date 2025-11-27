@@ -37,6 +37,11 @@ mnt/
 │   │       ├── title.txt        # read-only
 │   │       ├── text.txt         # page text content
 │   │       ├── body.html        # page HTML
+│   │       ├── document.html    # complete document.documentElement.outerHTML
+│   │       ├── selection.txt    # currently selected text from page
+│   │       ├── meta.json        # page metadata (description, author, charset, etc)
+│   │       ├── console.json     # console messages (log, warn, error, info)
+│   │       ├── errors.json      # JavaScript errors with stack traces
 │   │       ├── active           # write "true" to focus
 │   │       ├── control          # write: reload, remove, goForward, goBack
 │   │       ├── evals/           # drop JS files here to execute
@@ -142,6 +147,21 @@ echo reload > TabFS/fs/mnt/tabs/last-focused/control
 
 # screenshot a window
 cp TabFS/fs/mnt/windows/*/visible-tab.png ~/Desktop/
+
+# get full document HTML (including DOCTYPE, all attributes)
+cat TabFS/fs/mnt/tabs/last-focused/document.html
+
+# check what text user has selected on page
+cat TabFS/fs/mnt/tabs/last-focused/selection.txt
+
+# get page metadata (description, keywords, author)
+cat TabFS/fs/mnt/tabs/last-focused/meta.json
+
+# monitor console output from page
+cat TabFS/fs/mnt/tabs/last-focused/console.json
+
+# check for JavaScript errors
+cat TabFS/fs/mnt/tabs/last-focused/errors.json
 ```
 
 ## firefox vs chrome
