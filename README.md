@@ -4,6 +4,11 @@
 
 Browser tabs as a filesystem. `ls` your tabs. `rm` to close. `cat` to read content.
 
+## why i did this
+i wanted My Good Friend Claude to make me extensions, but it was very slow since he had such a hard time seeing the console logs to fix all the problems by his lonesome. Now, he can do everything on his own. He may need to be reminded he can see these files several times, but otherwise working better than I hoped
+
+Claude documation below 
+
 ## What This Fork Adds
 
 Claude Code integration via:
