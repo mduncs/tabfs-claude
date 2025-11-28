@@ -5,7 +5,7 @@ quick reference for extending TabFS.
 ## Setup After Clone
 
 ```bash
-cd ~/code/tabs-fs-claude
+cd /path/to/tabs-fs-claude
 
 # install macfuse (if not already)
 brew install macfuse

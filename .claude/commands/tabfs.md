@@ -8,7 +8,7 @@ Use this skill when doing web development, extension debugging, or needing to in
 ## Mount Point
 
 ```
-/Users/md/code/tabs-fs-claude/TabFS/fs/mnt/
+./TabFS/fs/mnt/
 ```
 
 ## What I Can Do
@@ -118,7 +118,7 @@ ls tabs/by-window/
 ## Quick Reference
 
 ```bash
-MNT="/Users/md/code/tabs-fs-claude/TabFS/fs/mnt"
+MNT="./TabFS/fs/mnt"
 
 # is tabfs mounted?
 ls $MNT/tabs/
