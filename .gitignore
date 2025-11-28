@@ -1,5 +1,6 @@
 # compiled binary
 TabFS/fs/tabfs
+*.xpi
 TabFS/fs/*.o
 TabFS/fs/*.dSYM/
 
